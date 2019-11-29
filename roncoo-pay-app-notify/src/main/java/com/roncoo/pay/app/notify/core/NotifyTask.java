@@ -67,15 +67,18 @@ public class NotifyTask implements Runnable, Delayed {
         return (nextNotifyTime == null ? 0 : nextNotifyTime * 1000) + lastTime;
     }
 
+    @Override
     public int compareTo(Delayed o) {
         NotifyTask task = (NotifyTask) o;
         return executeTime > task.executeTime ? 1 : (executeTime < task.executeTime ? -1 : 0);
     }
 
+    @Override
     public long getDelay(TimeUnit unit) {
-        return unit.convert(executeTime - System.currentTimeMillis(), unit.SECONDS);
+        return unit.convert(executeTime - System.currentTimeMillis(), TimeUnit.SECONDS);
     }
 
+    @Override
     public void run() {
         // 得到当前通知对象的通知次数
         Integer notifyTimes = notifyRecord.getNotifyTimes();

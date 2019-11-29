@@ -63,6 +63,7 @@ public abstract class BaseDaoImpl<T extends BaseEntity> implements BaseDao<T> {
     @Autowired
     private SqlSessionTemplate sessionTemplate;
 
+    @Override
     public SqlSessionTemplate getSessionTemplate() {
         return sessionTemplate;
     }
@@ -74,6 +75,7 @@ public abstract class BaseDaoImpl<T extends BaseEntity> implements BaseDao<T> {
     /**
      * 单条插入数据.
      */
+    @Override
     public int insert(T entity) {
         int result = sessionTemplate.insert(getStatement(SQL_INSERT), entity);
         if (result <= 0) {
@@ -85,6 +87,7 @@ public abstract class BaseDaoImpl<T extends BaseEntity> implements BaseDao<T> {
     /**
      * 批量插入数据.
      */
+    @Override
     public int insert(List<T> list) {
         if (list.isEmpty() || list.size() <= 0) {
             return 0;
@@ -99,6 +102,7 @@ public abstract class BaseDaoImpl<T extends BaseEntity> implements BaseDao<T> {
     /**
      * 根据id单条更新数据.
      */
+    @Override
     public int update(T entity) {
         entity.setEditTime(new Date());
         int result = sessionTemplate.update(getStatement(SQL_UPDATE_BY_ID), entity);
